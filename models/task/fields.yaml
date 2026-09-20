@@ -1,0 +1,30 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: 'ofthewildfire.tasks::lang.models.general.id'
+        disabled: true
+    title:
+        label: Task Title
+        type: text
+    description:
+        label: Task Content/Description
+        type: richeditor
+        size: full
+    assignee:
+        label: Assign Task To
+        type: relation
+    status:
+        label: Task Status (current)
+        type: dropdown
+        options:
+            todo: "To Do"
+            in_progress: "In Progress"
+            done: "Done"
+    due_date:
+        label: Due Date
+        type: datepicker
+        mode: date
+

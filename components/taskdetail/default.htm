@@ -1,0 +1,86 @@
+<div class="container" style="padding-top: 30px; padding-bottom: 30px;">
+    <div id="taskDetail-{{ __SELF__ }}">
+        {% if not task %}
+        <p class="text-muted">Task not found, or it isn't assigned to you.</p>
+        {% else %}
+        <a href="{{ boardPage|page }}">&larr; Back to board</a>
+
+        <div class="panel panel-default" style="margin-top: 15px;">
+            <div class="panel-heading">
+                {{ task.title }}
+
+                {% if task.status == 'done' %}
+                <span class="label label-success pull-right">{{ columns[task.status] }}</span>
+                {% elseif task.status == 'in_progress' %}
+                <span class="label label-warning pull-right">{{ columns[task.status] }}</span>
+                {% else %}
+                <span class="label label-default pull-right">{{ columns[task.status] }}</span>
+                {% endif %}
+            </div>
+
+            <div class="panel-body">
+                {% if task.due_date %}
+                <p class="text-muted">Due {{ task.due_date.format('M j, Y') }}</p>
+                {% endif %}
+
+                {% if task.description %}
+                {{ task.description | raw }}
+                {% endif %}
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        <select name="status" id="task-detail-status-{{ __SELF__ }}" class="form-control">
+                            {% for statusKey, statusLabel in columns %}
+                            <option value="{{ statusKey }}" {{ statusKey == task.status ? 'selected' : '' }}>
+                            {{ statusLabel }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        data-request="{{ __SELF__ }}::onUpdateStatus"
+                        data-request-update="'{{ __SELF__ }}::default': '#taskDetail-{{ __SELF__ }}'"
+                        data-attach-loading>
+                        <i class="icon-ok"></i> Update
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Comments</div>
+
+            {% if task.comments|length == 0 %}
+            <div class="panel-body text-muted">No comments yet.</div>
+            {% else %}
+            <div class="list-group">
+                {% for comment in task.comments %}
+                <div class="list-group-item">
+                    <small class="text-muted pull-right">{{ comment.created_at.format('M j, Y g:ia') }}</small>
+                    <strong>{{ comment.author ? comment.author.name : 'Unknown' }}</strong>
+                    <p>{{ comment.body }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="panel-body">
+                <form
+                    data-request="{{ __SELF__ }}::onAddComment"
+                    data-request-update="'{{ __SELF__ }}::default': '#taskDetail-{{ __SELF__ }}'"
+                    data-request-success="this.reset()"
+                    data-attach-loading>
+                    <div class="form-group">
+                        <textarea name="body" rows="3" class="form-control" placeholder="Add a comment..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add comment</button>
+                </form>
+            </div>
+        </div>
+
+        {% endif %}
+    </div>
+</div>

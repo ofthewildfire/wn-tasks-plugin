@@ -1,0 +1,39 @@
+<div class="container" style="padding-top: 30px; padding-bottom: 30px;">
+    <div class="row">
+        {% for status, label in columns %}
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ label }}
+                    <span class="badge">{{ (tasksByStatus[status] ?? [])|length }}</span>
+                </div>
+
+                {% set tasks = tasksByStatus[status] ?? [] %}
+
+                {% if tasks|length == 0 %}
+                <div class="panel-body text-muted">No tasks</div>
+                {% else %}
+                <div class="list-group">
+                    {% for task in tasks %}
+                    <a class="list-group-item" href="{{ detailPage|page({ id: task.id }) }}">
+                        {% if task.status == 'done' %}
+                        <span class="label label-success pull-right">{{ columns[task.status] }}</span>
+                        {% elseif task.status == 'in_progress' %}
+                        <span class="label label-warning pull-right">{{ columns[task.status] }}</span>
+                        {% else %}
+                        <span class="label label-default pull-right">{{ columns[task.status] }}</span>
+                        {% endif %}
+
+                        <strong>{{ task.title }}</strong>
+                        {% if task.due_date %}
+                        <br><small class="text-muted">Due {{ task.due_date.format('M j') }}</small>
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

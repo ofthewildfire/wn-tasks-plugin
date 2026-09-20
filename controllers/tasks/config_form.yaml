@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: 'ofthewildfire.tasks::lang.models.task.label'
+
+# Model Form Field configuration
+form: $/ofthewildfire/tasks/models/task/fields.yaml
+
+# Model Class name
+modelClass: Ofthewildfire\Tasks\Models\Task
+
+# Default redirect location
+defaultRedirect: ofthewildfire/tasks/tasks
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: ofthewildfire/tasks/tasks/update/:id
+    redirectClose: ofthewildfire/tasks/tasks
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: ofthewildfire/tasks/tasks
+    redirectClose: ofthewildfire/tasks/tasks
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

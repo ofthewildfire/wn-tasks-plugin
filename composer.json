@@ -1,0 +1,18 @@
+{
+    "name": "ofthewildfire/wn-tasks-plugin",
+    "description": "Simple tasks with a kanban board and comments in wintercms",
+    "type": "winter-plugin",
+    "autoload": {
+        "psr-4": {
+            "Ofthewildfire\\Tasks\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Kirsten Melissa"
+        }
+    ],
+    "require": {
+        "winter/wn-user-plugin": "*"
+    }
+}

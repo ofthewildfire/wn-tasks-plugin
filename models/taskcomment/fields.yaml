@@ -1,0 +1,8 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: 'ofthewildfire.tasks::lang.models.general.id'
+        disabled: true

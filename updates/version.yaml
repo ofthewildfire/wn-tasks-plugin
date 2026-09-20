@@ -1,0 +1,8 @@
+1.0.0:
+    - 'First version of Tasks'
+1.0.1:
+    - 'Create Tasks Table'
+    - v1.0.1/create_tasks_table.php
+1.0.2:
+    - 'Create TaskComments Table'
+    - v1.0.2/create_task_comments_table.php
